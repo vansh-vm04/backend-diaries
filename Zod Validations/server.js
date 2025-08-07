@@ -13,7 +13,11 @@ app.get('/signup',async (req,res)=>{
             password: z.string().min(8).max(30)
         }) 
         const isValid = user.safeParse({email,password});
-        if(!isValid.success) return res.status(400).send("Credentials are invalid")
+
+        if(!isValid.success){
+          let error = isValid.error.issues.map(e=> `${e.path} is ${e.message}`);
+          return res.status(400).send(`Errors:<br>${error}`);
+        }
         res.status(200).send("Credentials are valid");
     } catch (error) {
         res.status(500).json({error:"Internal server error"})
