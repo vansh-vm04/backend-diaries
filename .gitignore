@@ -3,7 +3,7 @@
 
 # Environment variables
 **/.env
-
+**/dist
 # Build output
 client/dist/
 **/build/
